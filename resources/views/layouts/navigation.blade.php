@@ -15,6 +15,19 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <!-- Za studenta -->
+                    @if(auth()->check() && auth()->user()->role === 'student')
+                        <x-nav-link href="{{ route('student.tasks.index') }}">Dostupni radovi</x-nav-link>
+                    @endif
+
+                    @if(auth()->check() && auth()->user()->role === 'teacher')
+                        <x-nav-link href="{{ route('tasks.create') }}">Dodaj rad</x-nav-link>
+                        <x-nav-link href="{{ route('teacher.applications.index') }}">Prijave studenata</x-nav-link>
+                    @endif
+
+                    @if(auth()->check() && auth()->user()->role === 'admin')
+                        <x-nav-link href="{{ route('users.index') }}">Upravljanje korisnicima</x-nav-link>
+                    @endif
                 </div>
             </div>
 

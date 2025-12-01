@@ -7,15 +7,20 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 class Kernel extends HttpKernel
 {
     /**
-     * Global HTTP middleware stack.
+     * Global HTTP middleware stack
      */
     protected $middleware = [
-        // ostali global middleware
-        \App\Http\Middleware\SetLocale::class, // <- ovdje ide globalno
+        \App\Http\Middleware\TrustProxies::class,
+        \Fruitcake\Cors\HandleCors::class,
+        \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
+        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+        \App\Http\Middleware\TrimStrings::class,
+        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \App\Http\Middleware\SetLocale::class, // <- tvoj lokalizacijski middleware
     ];
 
     /**
-     * Route middleware groups.
+     * Middleware groups
      */
     protected $middlewareGroups = [
         'web' => [
@@ -34,13 +39,12 @@ class Kernel extends HttpKernel
     ];
 
     /**
-     * Route middleware.
+     * Route middleware
      */
     protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'admin' => \App\Http\Middleware\AdminOnly::class, // <- ovdje ide alias
-        'role' => \App\Http\Middleware\RoleMiddleware::class,
-    ];
+    'auth' => \App\Http\Middleware\Authenticate::class,
+    'admin' => \App\Http\Middleware\AdminOnly::class,
+    'role' => \App\Http\Middleware\RoleMiddleware::class,
+];
+
 }
