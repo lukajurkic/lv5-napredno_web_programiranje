@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentTaskController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,5 +31,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
     });
 });
+
+Route::middleware(['auth', 'role:student'])->group(function () {
+    Route::get('/student/tasks', [StudentTaskController::class, 'index'])->name('student.tasks.index');
+});
+
 
 require __DIR__.'/auth.php';
