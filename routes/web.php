@@ -17,4 +17,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['hr', 'en'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::middleware('role:teacher')->group(function () {
+        Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+        Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+    });
+});
+
 require __DIR__.'/auth.php';
