@@ -50,4 +50,9 @@ class Task extends Model
     {
         return $this->study_type === self::TYPE_DIPLOMSKI;
     }
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
 }

@@ -36,5 +36,10 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/tasks', [StudentTaskController::class, 'index'])->name('student.tasks.index');
 });
 
+Route::middleware(['auth', 'role:teacher'])->group(function () {
+    Route::get('/teacher/applications', [TeacherApplicationController::class, 'index'])->name('teacher.applications.index');
+    Route::post('/teacher/applications/{application}/accept', [TeacherApplicationController::class, 'accept'])->name('teacher.applications.accept');
+});
+
 
 require __DIR__.'/auth.php';
