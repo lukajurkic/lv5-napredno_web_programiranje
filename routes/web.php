@@ -42,4 +42,9 @@ Route::middleware(['auth', 'role:teacher'])->group(function () {
 });
 
 
+Route::middleware(['auth', 'role:student'])->group(function () {
+    Route::post('/tasks/{task}/apply', [StudentApplicationController::class, 'apply'])->name('tasks.apply');
+});
+
+
 require __DIR__.'/auth.php';

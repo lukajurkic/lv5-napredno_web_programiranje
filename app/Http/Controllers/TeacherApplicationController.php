@@ -19,9 +19,13 @@ class TeacherApplicationController extends Controller
 
     public function accept(Application $application)
     {
-        // provjera da li nastavnik može prihvatiti prijavu samo na svoj rad
         if ($application->task->user_id !== auth()->id()) {
             abort(403, 'Access denied');
+        }
+
+        // provjera prioriteta
+        if ($application->priority !== 1) {
+            return redirect()->back()->with('error', 'Možete prihvatiti samo rad studenta s prioritetom 1.');
         }
 
         // označi sve prijave na isti rad kao pending osim prihvaćene
@@ -33,4 +37,5 @@ class TeacherApplicationController extends Controller
 
         return redirect()->back()->with('success', 'Student prihvaćen.');
     }
+
 }

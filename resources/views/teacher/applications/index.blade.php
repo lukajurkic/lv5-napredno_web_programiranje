@@ -16,6 +16,7 @@
                 <thead>
                     <tr class="bg-gray-200">
                         <th class="border px-2 py-1">Student</th>
+                        <th class="border px-2 py-1">Prioritet</th>
                         <th class="border px-2 py-1">Status</th>
                         <th class="border px-2 py-1">Akcija</th>
                     </tr>
@@ -24,6 +25,7 @@
                     @foreach($task->applications as $app)
                         <tr>
                             <td class="border px-2 py-1">{{ $app->student->name }} ({{ $app->student->email }})</td>
+                            <td class="border px-2 py-1">{{ $app->priority }}</td>
                             <td class="border px-2 py-1">{{ ucfirst($app->status) }}</td>
                             <td class="border px-2 py-1">
                                 @if($app->status !== 'accepted')
